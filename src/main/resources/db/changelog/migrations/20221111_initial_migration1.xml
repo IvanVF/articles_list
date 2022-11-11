@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!-- Создание таблицы users-->
+    <changeSet author="FeinIV" id="20211212_initial_migration_1">
+        <createTable tableName="users">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false" unique="true" />
+            </column>
+            <column name="first_name" type="varchar(255)" />
+            <column name="last_name" type="varchar(255)" />
+            <column name="middle_name" type="varchar(255)" />
+            <column name="email" type="varchar(255)" />
+            <column name="phone" type="bigint" />
+            <column name="role" type="varchar(100)" />
+        </createTable>
+    </changeSet>
+
+    <!-- Заполнение первой строки пробными значениями -->
+    <changeSet author="FeinIV" id="20211212_initial_migration_2">
+        <sql>
+            INSERT INTO users (first_name, last_name, middle_name, email, phone, role)
+            VALUES ('adminov', 'admin', 'adminovich', 'admin@gmail.com', 89233215470, 'administrator')
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
