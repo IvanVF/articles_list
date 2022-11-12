@@ -31,6 +31,14 @@ public class ArticleController {
     }
 
     /**
+     * Get last articles
+     */
+    @GetMapping("/get_last")
+    public List<ArticleEntity> getLastArticles() {
+        return articleService.getAllArticles();
+    }
+
+    /**
      * Create new article
      */
     @PostMapping

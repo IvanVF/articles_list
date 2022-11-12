@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Standardize exception answers
+ */
 @ControllerAdvice
 public class ErrorHandler {
 

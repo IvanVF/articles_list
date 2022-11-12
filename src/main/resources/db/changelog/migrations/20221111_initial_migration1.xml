@@ -9,29 +9,33 @@
             <column name="id" type="serial">
                 <constraints primaryKey="true" nullable="false" unique="true" />
             </column>
-            <column name="first_name" type="varchar(255)">
-                <constraints nullable="false"/>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
             </column>
-            <column name="last_name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="middle_name" type="varchar(255)" />
             <column name="email" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="phone" type="bigint">
-                <constraints unique="true"/>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
-            <column name="role" type="varchar(100)" />
+            <column name="account_non_expired" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_non_locked" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credentials_non_expired" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="date" defaultValueDate="LOCALTIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="date" />
+            <column name="deleted_at" type="date" />
         </createTable>
-    </changeSet>
-
-    <!-- Fill table users -->
-    <changeSet author="FeinIV" id="20221111_initial_migration_2">
-        <sql>
-            INSERT INTO users (first_name, last_name, middle_name, email, phone, role)
-            VALUES ('adminov', 'admin', 'adminovich', 'admin@gmail.com', 89233215470, 'administrator')
-        </sql>
     </changeSet>
 
     <!-- Create table articles-->
@@ -65,6 +69,72 @@
             ('What cat think about me?', 'Dog', 'He is so independent.. Stupid.', '2022-11-11'),
             ('How do you like my tail?', 'Fox', 'It is so red and fluffy', '2022-11-12')
         </sql>
+    </changeSet>
+
+    <!-- Create table roles-->
+    <changeSet author="FeinIV" id="20221112_initial_migration_5">
+        <createTable tableName="roles">
+            <column name="id" type="serial">
+                <constraints primaryKey="true" nullable="false" unique="true" />
+            </column>
+            <column name="name" type="varchar(25)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="date" defaultValueDate="LOCALTIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="date" />
+            <column name="deleted_at" type="date" />
+        </createTable>
+    </changeSet>
+
+    <!-- Create table user_roles-->
+    <changeSet author="FeinIV" id="20221112_initial_migration_6">
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT"/>
+            <column name="role_id" type="BIGINT"/>
+            <column name="created_at" type="date" defaultValueDate="LOCALTIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="date" />
+            <column name="deleted_at" type="date" />
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_roles"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_user_roles_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="user_roles"
+                                 baseColumnNames="role_id"
+                                 constraintName="fk_user_roles_roles"
+                                 referencedTableName="roles"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
+
+    <!-- Fill users, roles and user_roles table -->
+    <changeSet author="FeinIV" id="20221112_initial_migration_7">
+        <sql>
+            INSERT INTO users (username, email, password)
+            VALUES ('superadmin', 'admin@gmail.com', '$2a$12$.onDqxuT/0Fk3/LAlHb09.HSIyYb.P3L2i.xYgtHqC3pO/bYaGpPK') <!-- 100 -->
+        </sql>
+
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
