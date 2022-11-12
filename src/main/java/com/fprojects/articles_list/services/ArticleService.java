@@ -37,14 +37,14 @@ public class ArticleService {
      */
     public List<ArticleEntity> getLastWeekArticles(Integer perPage, Integer page) {
         Pageable pageable = PageRequest.of(page, perPage);
-        return articleRepository.findAllByCreatedAtBetween(new Timestamp((Timestamp.from(Instant.now()).getTime() - MILLISECONDS_IN_WEEK)), new Date(), pageable);
+        return articleRepository.findAllByCreatedAtBetweenAndDeletedAtIsNull(new Timestamp((Timestamp.from(Instant.now()).getTime() - MILLISECONDS_IN_WEEK)), new Date(), pageable);
     }
 
     /**
      * Get last week articles count
      */
     public Integer getLastWeekArticlesCount() {
-        return articleRepository.countByCreatedAtBetween(new Timestamp((Timestamp.from(Instant.now()).getTime() - MILLISECONDS_IN_WEEK)), new Date());
+        return articleRepository.countByCreatedAtBetweenAndDeletedAtIsNull(new Timestamp((Timestamp.from(Instant.now()).getTime() - MILLISECONDS_IN_WEEK)), new Date());
     }
 
     /**

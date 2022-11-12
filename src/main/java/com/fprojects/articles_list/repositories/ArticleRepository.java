@@ -12,16 +12,16 @@ public interface ArticleRepository  extends JpaRepository<ArticleEntity, Long> {
     /**
      * Get all articles with pagination
      */
-    @Query(value = "SELECT * FROM articles", nativeQuery = true)
+    @Query(value = "SELECT * FROM articles WHERE deleted_at IS null", nativeQuery = true)
     List<ArticleEntity> list(Pageable pageable);
 
     /**
      * Get articles with pagination posted between start and end dates
      */
-    List<ArticleEntity> findAllByCreatedAtBetween(Date dateStart, Date dateEnd, Pageable pageable);
+    List<ArticleEntity> findAllByCreatedAtBetweenAndDeletedAtIsNull(Date dateStart, Date dateEnd, Pageable pageable);
 
     /**
      * Get count of articles posted between start and end dates
      */
-    Integer countByCreatedAtBetween(Date dateStart, Date dateEnd);
+    Integer countByCreatedAtBetweenAndDeletedAtIsNull(Date dateStart, Date dateEnd);
 }

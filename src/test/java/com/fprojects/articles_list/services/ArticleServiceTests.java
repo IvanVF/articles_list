@@ -68,7 +68,7 @@ public class ArticleServiceTests {
 
         List<ArticleEntity> articles = Arrays.asList(firstArticle, secondArticle);
         ArticleRepository articleRepository = mock(ArticleRepository.class);
-        when(articleRepository.findAllByCreatedAtBetween(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(articles);
+        when(articleRepository.findAllByCreatedAtBetweenAndDeletedAtIsNull(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(articles);
 
         ArticleService articleService = new ArticleService(articleRepository);
 
@@ -80,7 +80,7 @@ public class ArticleServiceTests {
     @Test
     public void getLastWeekArticlesCount() {
         ArticleRepository articleRepository = mock(ArticleRepository.class);
-        when(articleRepository.countByCreatedAtBetween(Mockito.any(), Mockito.any())).thenReturn(2);
+        when(articleRepository.countByCreatedAtBetweenAndDeletedAtIsNull(Mockito.any(), Mockito.any())).thenReturn(2);
 
         ArticleService articleService = new ArticleService(articleRepository);
 
