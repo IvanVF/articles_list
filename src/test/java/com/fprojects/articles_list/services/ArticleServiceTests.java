@@ -2,7 +2,6 @@ package com.fprojects.articles_list.services;
 
 import com.fprojects.articles_list.entities.ArticleEntity;
 import com.fprojects.articles_list.repositories.ArticleRepository;
-//import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Mockito;

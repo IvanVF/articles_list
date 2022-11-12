@@ -15,6 +15,13 @@ public interface ArticleRepository  extends JpaRepository<ArticleEntity, Long> {
     @Query(value = "SELECT * FROM articles", nativeQuery = true)
     List<ArticleEntity> list(Pageable pageable);
 
+    /**
+     * Get articles with pagination posted between start and end dates
+     */
     List<ArticleEntity> findAllByCreatedAtBetween(Date dateStart, Date dateEnd, Pageable pageable);
+
+    /**
+     * Get count of articles posted between start and end dates
+     */
     Integer countByCreatedAtBetween(Date dateStart, Date dateEnd);
 }

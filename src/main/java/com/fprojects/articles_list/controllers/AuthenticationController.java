@@ -36,7 +36,6 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto authRequestDto) {
-        UserEntity user2 = userService.getUserByUsername(authRequestDto.getUsername());
         try {
             String username = authRequestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, authRequestDto.getPassword()));

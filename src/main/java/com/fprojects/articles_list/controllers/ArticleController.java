@@ -36,6 +36,7 @@ public class ArticleController {
 
     /**
      * Get last week articles with pagination
+     * Available only for admin
      */
     @GetMapping("/get_last")
     public List<ArticleEntity> getLastArticles(@RequestParam(name = "per_page", required = false) Integer perPage,
@@ -47,6 +48,7 @@ public class ArticleController {
 
     /**
      * Get last week articles count
+     * Available only for admin
      */
     @GetMapping("/get_last_count")
     public Integer getLastWeekArticlesCount() {

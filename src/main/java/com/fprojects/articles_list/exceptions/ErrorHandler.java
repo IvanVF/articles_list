@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Standardize exception answers
+ * Standardize exception responses
  */
 @ControllerAdvice
 public class ErrorHandler {
