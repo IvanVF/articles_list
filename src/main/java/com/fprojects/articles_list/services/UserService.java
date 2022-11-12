@@ -20,14 +20,16 @@ import java.util.List;
 @Slf4j
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * Get all users
@@ -73,6 +75,7 @@ public class UserService {
         List<RoleEntity> roles = Arrays.asList(role);
 
         user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserEntity registeredUser = userRepository.save(user);
 
         log.info("User " + registeredUser.getUsername() + " successfully registered", registeredUser);

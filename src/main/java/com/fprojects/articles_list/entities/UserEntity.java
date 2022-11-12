@@ -1,5 +1,6 @@
 package com.fprojects.articles_list.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity extends BaseEntity implements UserDetails {
 
     @Column(name = "username")

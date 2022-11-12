@@ -28,6 +28,6 @@ public class ArticleEntity extends BaseEntity {
     private String author;
 
     @Column(name = "content")
-    @Length(min = 3, max = 100, message = "Content should be at least 3 and less then 100 symbols")
+    @Length(min = 3, max = 1000, message = "Content should be at least 3 and less then 1000 symbols")
     private String content;
 }

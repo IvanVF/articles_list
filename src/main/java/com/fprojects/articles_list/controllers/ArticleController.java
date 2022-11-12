@@ -23,19 +23,34 @@ public class ArticleController {
     }
 
     /**
-     * Get all articles
+     * Get all articles with pagination
      */
     @GetMapping
-    public List<ArticleEntity> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleEntity> getAllArticles(@RequestParam(name = "per_page", required = false) Integer perPage,
+                                              @RequestParam(name = "page", required = false) Integer page
+    ) {
+        perPage = perPage == null ? 5 : perPage;
+        page = page == null ? 0 : page;
+        return articleService.getAllArticles(perPage, page);
     }
 
     /**
-     * Get last articles
+     * Get last week articles with pagination
      */
     @GetMapping("/get_last")
-    public List<ArticleEntity> getLastArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleEntity> getLastArticles(@RequestParam(name = "per_page", required = false) Integer perPage,
+                                               @RequestParam(name = "page", required = false) Integer page) {
+        perPage = perPage == null ? 5 : perPage;
+        page = page == null ? 0 : page;
+        return articleService.getLastWeekArticles(perPage, page);
+    }
+
+    /**
+     * Get last week articles count
+     */
+    @GetMapping("/get_last_count")
+    public Integer getLastWeekArticlesCount() {
+        return articleService.getLastWeekArticlesCount();
     }
 
     /**

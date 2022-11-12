@@ -1,6 +1,8 @@
 package com.fprojects.articles_list.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleEntity extends BaseEntity implements GrantedAuthority {
 
     @Column(name = "name")

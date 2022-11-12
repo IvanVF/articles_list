@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_ENDPOINT = "/auth/login";
     private static final String ARTICLES_ENDPOINT = "/articles";
     private static final String GET_LAST_ARTICLES_ENDPOINT = "/articles/get_last";
+    private static final String GET_LAST_ARTICLES_COUNT_ENDPOINT = "/articles/get_last_count";
 
     @Bean
     @Override
@@ -39,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ARTICLES_ENDPOINT).permitAll()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .antMatchers(GET_LAST_ARTICLES_ENDPOINT).hasRole("ADMIN")
+                .antMatchers(GET_LAST_ARTICLES_COUNT_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
